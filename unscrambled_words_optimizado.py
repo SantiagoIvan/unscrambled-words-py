@@ -1,4 +1,8 @@
+lista_palabras_desordenadas = list()
 palabras_desordenadas = open("palabras_target.txt","r")
+for palabra in palabras_desordenadas:
+    lista_palabras_desordenadas.append(palabra.rstrip("\n"))
+palabras_desordenadas.close()
 registro_de_letras1 = {}
 registro_de_letras2 = {}
 respuesta = list()
@@ -18,15 +22,13 @@ def es_palabra_desordenada(desordenada, ordenada):
         apariciones_de_letras(ordenada, registro_de_letras2)
         return registro_de_letras1==registro_de_letras2
 
-for palabra_desordenada in palabras_desordenadas:
-    print("Analizando ",palabra_desordenada)
-    wordlist = open("wordlist.txt","r")
-    for word in wordlist:
-        if(es_palabra_desordenada(palabra_desordenada.rstrip("\n"), word.rstrip("\n"))):
-            print("Palabra encontrada ", palabra_desordenada.rstrip("\n"), " vs ", word.rstrip("\n"))
-            respuesta.append(word.rstrip("\n"))
+wordlist = open("wordlist.txt","r")
+for word in wordlist:
+    new_word = word.rstrip("\n")
+    for i in range(len(lista_palabras_desordenadas)):
+        if(es_palabra_desordenada(lista_palabras_desordenadas[i], new_word)):
+            lista_palabras_desordenadas[i] = new_word
             break
-    wordlist.close()
+wordlist.close()
 
-print(str(respuesta).replace(" ","").replace("[","(").replace("]",")").replace("'",""))
-palabras_desordenadas.close()
+print(str(lista_palabras_desordenadas).lstrip("[").rstrip("]").replace("'","").replace(" ",""))

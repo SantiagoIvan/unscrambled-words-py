@@ -19,11 +19,9 @@ def es_palabra_desordenada(desordenada, ordenada):
         return registro_de_letras1==registro_de_letras2
 
 for palabra_desordenada in palabras_desordenadas:
-    print("Analizando ",palabra_desordenada)
     wordlist = open("wordlist.txt","r")
     for word in wordlist:
         if(es_palabra_desordenada(palabra_desordenada.rstrip("\n"), word.rstrip("\n"))):
-            print("Palabra encontrada ", palabra_desordenada.rstrip("\n"), " vs ", word.rstrip("\n"))
             respuesta.append(word.rstrip("\n"))
             break
     wordlist.close()
